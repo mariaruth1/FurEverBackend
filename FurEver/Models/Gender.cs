@@ -4,7 +4,6 @@ namespace FurEver.Models;
 
 public class Gender
 {
-    [Key]
-    public string Name { get; set; }
-    public string DisplayName { get; set; }
+    public int Id { get; set; }
+    public string? GenderName { get; set; }
 }

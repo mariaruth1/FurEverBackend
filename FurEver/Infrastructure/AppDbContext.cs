@@ -8,8 +8,8 @@ namespace FurEver.Infrastructure;
 public class AppDbContext : IdentityDbContext<Furry, IdentityRole<Guid>, Guid>
 {
     public DbSet<Gender> Genders { get; set; }
-    public DbSet<Fursona> Fursonas { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
+    
 }

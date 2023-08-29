@@ -16,7 +16,7 @@ public class FurryRepository
     //Get all furries
     public IEnumerable<Furry> GetAllFurries()
     {
-        var sql = @$"SELECT * FROM .AspNetUsers";
+        var sql = @$"SELECT * FROM";
             
         using var connection = new NpgsqlConnection();
         var result = connection.Query<Furry>(sql);

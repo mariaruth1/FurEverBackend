@@ -4,9 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+/*var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql(connectionString));*/
+
+
 builder.Services.AddSingleton<FurryRepository>();
 builder.Services.AddSingleton<FurryService>();
 builder.Services.AddControllers();
