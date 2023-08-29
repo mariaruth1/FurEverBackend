@@ -1,12 +1,14 @@
-﻿using FurEver.models;
+﻿using FurEver.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FurEver.Infrastructure;
 
-public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
+public class AppDbContext : IdentityDbContext<Furry, IdentityRole<Guid>, Guid>
 {
+    public DbSet<Gender> Genders { get; set; }
+    public DbSet<Fursona> Fursonas { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
