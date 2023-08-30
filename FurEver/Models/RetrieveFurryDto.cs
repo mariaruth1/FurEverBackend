@@ -1,4 +1,6 @@
-﻿namespace FurEver.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FurEver.Models;
 
 public class RetrieveFurryDto
 {
@@ -7,4 +9,7 @@ public class RetrieveFurryDto
     public string? Fursona { get; set; }
     public string Username { get; set; } = null!;
     public string GenderName { get; set; }
+    
+    [EmailAddress]
+    public string? Email { get; set; }
 }

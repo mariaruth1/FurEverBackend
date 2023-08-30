@@ -7,7 +7,7 @@ namespace FurEver.Infrastructure;
 
 public class FurryRepository
 {
-    private NpgsqlDataSource _dataSource;
+    private readonly NpgsqlDataSource _dataSource;
 
     public FurryRepository(NpgsqlDataSource dataSource)
     {
@@ -18,31 +18,50 @@ public class FurryRepository
     public RetrieveFurryDto AddFurry(CreateFurryDto createFurry)
     {
         var sql = $@"INSERT INTO furever.furries 
-    (id, username, fursona, age, genderid) 
-VALUES (@id, @username, @fursona, @age, @genderid)";
+    (id, username, email, passwordhash, fursona, age, genderid) 
+VALUES (@id, @username, @email, @passwordhash, @fursona, @age, @genderid)";
 
         using var connection = _dataSource.OpenConnection();
-        connection.Execute(sql, new {id = createFurry.Id, username = createFurry.Username, 
-            fursona = createFurry.Fursona, age = createFurry.Age, genderid = createFurry.GenderId});
-
-        sql = $@"SELECT furries.id as {nameof(RetrieveFurryDto.FurryId)}, 
+        connection.Execute(sql, new {id = createFurry.FurryId, 
+            username = createFurry.Username, 
+            email = createFurry.Email, 
+            passwordhash = createFurry.PasswordHash, 
+            fursona = createFurry.Fursona, 
+            age = createFurry.Age, 
+            genderid = createFurry.GenderId});
+        
+        return GetFurryFromId(createFurry.FurryId);
+    }
+    
+    //Get basic furry info from id
+    public RetrieveFurryDto GetFurryFromId(Guid id)
+    {
+        var sql = $@"SELECT furries.id as {nameof(RetrieveFurryDto.FurryId)}, 
 username as {nameof(RetrieveFurryDto.Username)}, 
+email as {nameof(RetrieveFurryDto.Email)},  
 fursona as {nameof(RetrieveFurryDto.Fursona)},
 age as {nameof(RetrieveFurryDto.Age)},
 g.gendername as {nameof(RetrieveFurryDto.GenderName)} 
 FROM furever.furries JOIN furever.genders g on g.id = furries.genderid WHERE furries.id = @id;";
-        var result = connection.QuerySingle<RetrieveFurryDto>(sql, new {id = createFurry.Id});
-        return result;
+        
+            using var connection = _dataSource.OpenConnection();
+            var result = connection.QuerySingle<RetrieveFurryDto>(sql, new {id = id});
+            return result;
     }
     
     
     //Get all furries
-    public IEnumerable<Furry> GetAllFurries()
+    public IEnumerable<RetrieveFurryDto> GetAllFurries()
     {
-        var sql = @$"SELECT * FROM furever.furries JOIN furever.genders g on g.id = furries.genderid";
+        var sql = @$"SELECT furries.id as {nameof(RetrieveFurryDto.FurryId)}, 
+username as {nameof(RetrieveFurryDto.Username)}, 
+email as {nameof(RetrieveFurryDto.Email)},  
+fursona as {nameof(RetrieveFurryDto.Fursona)},
+age as {nameof(RetrieveFurryDto.Age)},
+g.gendername as {nameof(RetrieveFurryDto.GenderName)} FROM furever.furries JOIN furever.genders g on g.id = furries.genderid";
             
         using var connection = _dataSource.OpenConnection();
-        var result = connection.Query<Furry>(sql);
+        var result = connection.Query<RetrieveFurryDto>(sql);
         return result;
     }
     
@@ -50,8 +69,6 @@ FROM furever.furries JOIN furever.genders g on g.id = furries.genderid WHERE fur
     
     //Get all furry profiles
     
-    
-    //Get furry by ID
     
     //Get furry profile by user ID
     

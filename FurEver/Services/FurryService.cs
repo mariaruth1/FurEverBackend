@@ -26,7 +26,19 @@ public class FurryService
         }
     }
     
-    public IEnumerable<Furry> GetAllFurries()
+    public RetrieveFurryDto GetFurryFromId(Guid id)
+    {
+        try
+        {
+            return _furryRepository.GetFurryFromId(id);
+        }
+        catch (Exception)
+        {
+            throw new Exception("Could not load furry :(");
+        }
+    }
+    
+    public IEnumerable<RetrieveFurryDto> GetAllFurries()
     {
         try
         {

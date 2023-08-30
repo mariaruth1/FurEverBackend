@@ -24,8 +24,15 @@ public class FurryController : ControllerBase
     }
     
     [HttpGet]
+    [Route("/api/furries/{id}")]
+    public RetrieveFurryDto GetFurryFromId(Guid id)
+    {
+        return _furryService.GetFurryFromId(id);
+    }
+    
+    [HttpGet]
     [Route("/api/furries")]
-    public IEnumerable<Furry> GetFurries()
+    public IEnumerable<RetrieveFurryDto> GetFurries()
     {
         return _furryService.GetAllFurries();
     }
