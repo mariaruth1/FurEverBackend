@@ -1,6 +1,8 @@
+using Dapper;
 using FurEver.Models;
 using FurEver.Services;
 using Microsoft.AspNetCore.Mvc;
+using Npgsql;
 
 namespace FurEver.Controllers;
 
@@ -12,6 +14,13 @@ public class FurryController : ControllerBase
     public FurryController(FurryService furryService)
     {
         _furryService = furryService;
+    }
+    
+    [HttpPost]
+    [Route("/api/furries")]
+    public RetrieveFurryDto AddFurry(CreateFurryDto furry)
+    {
+        return _furryService.AddFurry(furry);
     }
     
     [HttpGet]

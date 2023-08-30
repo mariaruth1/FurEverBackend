@@ -1,13 +1,9 @@
 using FurEver.Infrastructure;
 using FurEver.Services;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-/*var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString));*/
-
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddNpgsqlDataSource(connectionString, dataSourceBuilder => dataSourceBuilder.EnableParameterLogging());
 
 builder.Services.AddSingleton<FurryRepository>();
 builder.Services.AddSingleton<FurryService>();
@@ -28,6 +24,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapControllers();
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.Run();
