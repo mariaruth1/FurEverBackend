@@ -1,15 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FurEver.Models;
+namespace FurEver.Models.SendDtos;
 
-public class RetrieveFurryDto
+public class UpdateFurryBasicInfoDto
 {
     public Guid FurryId { get; set; }
     public int Age { get; set; }
     public string? Fursona { get; set; }
     public string Username { get; set; } = null!;
-    public string GenderName { get; set; }
+    public int GenderId { get; set; }
     
     [EmailAddress]
-    public string? Email { get; set; }
+    public string Email { get; set; } = null!;
+    public string? PasswordHash { get; set; }
 }

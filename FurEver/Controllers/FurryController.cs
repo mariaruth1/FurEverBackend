@@ -1,5 +1,7 @@
 using Dapper;
 using FurEver.Models;
+using FurEver.Models.GetDtos;
+using FurEver.Models.SendDtos;
 using FurEver.Services;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
@@ -35,5 +37,12 @@ public class FurryController : ControllerBase
     public IEnumerable<RetrieveFurryDto> GetFurries()
     {
         return _furryService.GetAllFurries();
+    }
+    
+    [HttpDelete]
+    [Route("/api/furries/{id}")]
+    public bool DeleteFurry(Guid id)
+    {
+        return _furryService.DeleteFurry(id);
     }
 }

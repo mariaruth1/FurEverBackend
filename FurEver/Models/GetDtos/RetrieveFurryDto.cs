@@ -1,17 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
 
-namespace FurEver.Models;
+namespace FurEver.Models.GetDtos;
 
-public class CreateFurryDto
+public class RetrieveFurryDto
 {
     public Guid FurryId { get; set; }
     public int Age { get; set; }
     public string? Fursona { get; set; }
     public string Username { get; set; } = null!;
-    public int GenderId { get; set; }
+    public string GenderName { get; set; } = null!;
     
     [EmailAddress]
     public string? Email { get; set; }
-    public string? PasswordHash { get; set; }
 }
