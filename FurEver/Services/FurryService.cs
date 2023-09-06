@@ -22,6 +22,9 @@ public class FurryService
         }
         catch (Exception e)
         {
+            Console.WriteLine(e.InnerException);
+            Console.WriteLine(e.Message);
+            Console.WriteLine(e.StackTrace);
             throw new Exception("Could not add furry :(");
         }
     }

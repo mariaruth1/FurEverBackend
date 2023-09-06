@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using FurEver.Models;
 using FurEver.Models.SendDtos;
 using FurEver.Models.GetDtos;
 using Npgsql;
@@ -19,11 +18,12 @@ public class FurryRepository
     public RetrieveFurryDto AddFurry(CreateFurryDto createFurry)
     {
         var sql = $@"INSERT INTO furever.furries 
-    (id, username, email, passwordhash, fursona, age, genderid, profilepicurl, profileintro, profilebio, profilemood)) 
+    (id, username, email, passwordhash, fursona, age, genderid, profilepicurl, profileintro, profilebio, profilemood) 
 VALUES (@id, @username, @email, @passwordhash, @fursona, @age, @genderid, @profilepicurl, @profileintro, @profilebio, @profilemood)";
 
         using var connection = _dataSource.OpenConnection();
-        connection.Execute(sql, new {id = createFurry.FurryId, 
+        connection.Execute(sql, new {
+            id = createFurry.FurryId, 
             username = createFurry.Username, 
             email = createFurry.Email, 
             passwordhash = createFurry.PasswordHash, 

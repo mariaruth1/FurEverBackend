@@ -26,10 +26,17 @@ public class FurryController : ControllerBase
     }
     
     [HttpGet]
-    [Route("/api/furries/{id}")]
+    [Route("/api/furries/{id}/account")]
     public RetrieveFurryDto GetFurryFromId(Guid id)
     {
         return _furryService.GetFurryFromId(id);
+    }
+    
+    [HttpGet]
+    [Route("/api/furries/{id}/profile")]
+    public RetrieveFurryWithProfileDto GetFurryWithProfileFromId(Guid id)
+    {
+        return _furryService.GetFurryWithProfileFromId(id);
     }
     
     [HttpGet]
@@ -37,6 +44,27 @@ public class FurryController : ControllerBase
     public IEnumerable<RetrieveFurryDto> GetFurries()
     {
         return _furryService.GetAllFurries();
+    }
+    
+    [HttpGet]
+    [Route("/api/furries/profiles")]
+    public IEnumerable<RetrieveFurryWithProfileDto> GetFurryProfiles()
+    {
+        return _furryService.GetAllFurryProfiles();
+    }
+    
+    [HttpPut]
+    [Route("/api/furries/{id}/account")]
+    public RetrieveFurryDto UpdateFurry(UpdateFurryBasicInfoDto furry)
+    {
+        return _furryService.UpdateFurryBasicInfo(furry);
+    }
+    
+    [HttpPut]
+    [Route("/api/furries/{id}/profile")]
+    public RetrieveFurryProfileDto UpdateFurryProfile(UpdateFurryProfileDto furry)
+    {
+        return _furryService.UpdateFurryProfile(furry);
     }
     
     [HttpDelete]
